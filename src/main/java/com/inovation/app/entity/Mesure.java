@@ -22,7 +22,7 @@ public class Mesure {
 	private Timestamp date;
 	private Double valeur;
 	@ManyToOne
-	@JoinColumn(name="compteur_id")
+	@JoinColumn(name="compteur_id",nullable = false, updatable = false)
 	private Compteur compteur;
 	
 	public String getDayName() {
