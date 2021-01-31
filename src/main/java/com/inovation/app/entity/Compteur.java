@@ -29,7 +29,7 @@ public class Compteur {
 	private Address address;
 	@ManyToOne
 	private Utilisateur utilisateur;
-	
+		
 	public Compteur(Long id) {
 		this.id = id;
 	}

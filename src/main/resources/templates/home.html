@@ -42,11 +42,12 @@
 			<hr class="sidebar-divider my-0">
 
 			<!-- Nav Item - Dashboard -->
-			<li class="nav-item" th:each="c : ${utilisateur.compteur}" th:classappend="${c.id == compteur.id}? 'active' : ''">
-				<a class="nav-link" th:href="@{/compteur/{id}(id=${c.id})} ">
-					<i class="fas fa-tachometer-alt"></i> <span th:text="|Compteur ${c.id}|"></span>
-			</a>
-			</li>
+			<li class="nav-item" th:each="c : ${utilisateur.compteur}"
+				th:classappend="${c.id == compteur.id}? 'active' : ''"><a
+				class="nav-link" th:href="@{/compteur/{id}(id=${c.id})} "> <i
+					class="fas fa-tachometer-alt"></i> <span
+					th:text="|Compteur ${c.id}|"></span>
+			</a></li>
 
 			<div class="text-center d-none d-md-inline">
 				<button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -57,7 +58,7 @@
 			<div class="jumbotron jumbotron-fluid">
 				<div class="container">
 					<h1 class="display-4" th:text="|Compteur ${compteur.id}|"></h1>
-					<p class="lead" th:text ="${compteur.address}"></p>
+					<p class="lead" th:text="${compteur.address}"></p>
 				</div>
 			</div>
 			<div class="card-body">
@@ -78,8 +79,9 @@
 						role="tabpanel" aria-labelledby="nav-home-tab">
 						<!-- TODO -->
 						<h2>Consommation hebdomadaire</h2>
-						<canvas id="semaine-consomation-chart">
+						<canvas id="semaine-consomation-chart"></canvas>
 						
+					
 					
 					
 					
@@ -229,10 +231,10 @@
 							<option value="day">Jour</option>
 							<option value="week">Semaine</option>
 						</select>
-						<canvas id="mensuelle-consomation-chart">
+						<canvas id="mensuelle-consomation-chart"></canvas>
+						<div class="row" id="facture-a"></div>
 						
-					
-					
+				     					
 					
 					</div>
 					<div class="tab-pane fade" id="nav-contact" role="tabpanel"
@@ -240,6 +242,7 @@
 						<h2>Consommation d'une année</h2>
 						<canvas id="annee-consomation-chart">
 						
+					
 					
 					
 					

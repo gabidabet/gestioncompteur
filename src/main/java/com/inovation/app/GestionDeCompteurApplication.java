@@ -76,7 +76,7 @@ public class GestionDeCompteurApplication {
 		Random r = new Random();
 		calendar.add(Calendar.DAY_OF_MONTH, -200);
 		for(int i = 0; i < 200;i++) {
-			mesures.add(new Mesure(null, new Timestamp(calendar.getTime().getTime()), r.nextDouble() * 100, c1));
+			mesures.add(new Mesure(null, new Timestamp(calendar.getTime().getTime()), new Double(r.nextInt(12)), c1));
 			calendar.set(Calendar.HOUR_OF_DAY, r.nextInt(12));
 			calendar.set(Calendar.MINUTE, r.nextInt(60));
 			calendar.set(Calendar.SECOND, r.nextInt(60));
@@ -88,7 +88,7 @@ public class GestionDeCompteurApplication {
 		List<Mesure> mesures2 = new ArrayList<>();
 		calendar.add(Calendar.DAY_OF_MONTH, -200);
 		for(int i = 0; i < 200;i++) {
-			mesures2.add(new Mesure(null, new Timestamp(calendar.getTime().getTime()), r.nextDouble() * 100, c2));
+			mesures2.add(new Mesure(null, new Timestamp(calendar.getTime().getTime()), new Double(r.nextInt(12)), c2));
 			calendar.set(Calendar.HOUR_OF_DAY, r.nextInt(12));
 			calendar.set(Calendar.MINUTE, r.nextInt(60));
 			calendar.set(Calendar.SECOND, r.nextInt(60));

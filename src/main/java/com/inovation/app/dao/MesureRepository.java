@@ -12,6 +12,6 @@ import com.inovation.app.entity.Mesure;
 public interface MesureRepository extends JpaRepository<Mesure,Long>{
 	
 	List<Mesure> findTop7ByCompteur_IdOrderByIdDesc(Long id);
-	@Query("select m from Mesure m where year(m.date) = ?1 and month(m.date) = ?2")
-	List<Mesure> getByYearAndMonth(int year, int month);
+	@Query("select m from Mesure m where year(m.date) = ?1 and month(m.date) = ?2 and m.compteur.id= ?3")
+	List<Mesure> getByYearAndMonth(int year, int month,Long id);
 }

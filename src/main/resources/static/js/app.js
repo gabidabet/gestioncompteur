@@ -6,7 +6,7 @@ $(document).ready(function () {
     
     let $canvas = $('#semaine-consomation-chart');
     let ctx = $canvas[0].getContext('2d');
-    let url = `http://localhost:9080/mesures/search/findTop7ByCompteur_IdOrderByIdDesc?id=${window.location.pathname.split('/')[2]}`;
+    let url = `http://localhost:9080/api/mesures/search/findTop7ByCompteur_IdOrderByIdDesc?id=${window.location.pathname.split('/')[2]}`;
     $.getJSON(url,(data) => {
         console.log(data);
         var barChartData = {
@@ -47,8 +47,63 @@ $(document).ready(function () {
     })
     
 });
+function getTr(trancheID,totale, coeff){
+    return  `
+    <tr>
+        <td scope="row">Tranche ${trancheID} </td>
+        <td>${totale}</td>
+        <td>${(totale * coeff).toFixed(2)}</td>
+    </tr>
+    `
+}
+function setConsomationTable($,mesurs){
+    let rows = ``;
+    let totale = mesurs.reduce((a, b) => a + b, 0);
+    console.log(totale);
+    if(totale > 1 && totale <= 150 ){
+        if(totale <= 100){
+            rows = getTr(1,100, 0.8496)
+        }else{
+            rows = getTr(1,100, 0.8496)
+            rows += getTr(2,totale - 100, 1.0220);
+            rows += `
+            <tr>
+                <td scope="row"> </td>
+                <td colspan='2'>${(100 * 0.8496).toFixed(2) + (totale - 100 * 1.0220).toFixed(2)}</td>
+            </tr>
+            `
+        }
+    }else if(totale > 150 && totale <= 210 ){
+        rows = getTr(3,totale,1.0220)
+    }else if(totale > 210 && totale <= 350 ){
+        rows = getTr(4,totale,1.1119)
+    }else if(totale > 350 && totale <= 510 ){
+        rows = getTr(5,totale,1.3157)
+    }else{
+        rows = getTr(6,totale,1.5193)
+    }
+    let table = `
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Facture</th>
+                
+                </tr>
+                <tr>
+                    <th scope="row">Tranche</td>
+                    <th>Consommation</td>
+                    <th>Prix</td>
+                </tr>
+            </thead>
+            <tbody>
+                ${rows}
+            </tbody>
+        </table>
+    `
+    $('#facture-a').append(table);
+}
 function getDataByMonthAndYear(year,month,barType,color){
-    let url = `http://localhost:9080/mesures/search/getByYearAndMonth?year=${year}&month=${month}`;
+    let url = `http://localhost:9080/api/mesures/search/getByYearAndMonth?year=${year}&month=${month}&id=1`;
         let $canvas = $('#mensuelle-consomation-chart');
         let ctx = $canvas[0].getContext('2d');
         $.getJSON(url,(data) => {
@@ -64,6 +119,7 @@ function getDataByMonthAndYear(year,month,barType,color){
                 }]
         
             };
+            setConsomationTable($,data._embedded.mesures.map(e => parseFloat(e.valeur.toFixed(2)) ) )
             window.myBar = new Chart(ctx, {
                 type: 'bar',
                 data: barChartData,
@@ -79,4 +135,5 @@ function getDataByMonthAndYear(year,month,barType,color){
                 }
             });
         });
+        
 }
